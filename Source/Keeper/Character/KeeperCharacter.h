@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-#include "Skill/SkillData.h"
 #include "DamageField_Base.h"
 #include "KeeperCharacter.generated.h"
 
@@ -12,8 +11,6 @@ class AKeeperCharacterController;
 class AMonsterBase;
 class ADamageField_Base;
 class USphereComponent;
-
-DECLARE_DELEGATE_OneParam(FUseSkillDelegate, int);
 
 UCLASS()
 class KEEPER_API AKeeperCharacter : public ACharacter
