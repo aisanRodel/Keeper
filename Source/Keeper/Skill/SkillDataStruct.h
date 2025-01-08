@@ -68,8 +68,9 @@ public:
 	//UPROPERTY(EditAnywhere)
 	//TSubclassOf<class AActor> Projectile;	
 
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	//class UAnimMontage* SkillMontage;	// 스킬 애니메이션 몽타주
+	// 스킬 애니메이션 몽타주
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	class UAnimMontage* SkillAnimMontage;	
 
 	// <스킬 정보에 추가되어야 하는 내용>
 	//  - 스킬 인덱스, 스킬 종류(근접(단일, 광역), 원거리(단일, 광역), 지속형, 재사용, 트리거), 스킬의 지정위치정보(QWER 중 어느 위치인지), 스킬의 집합정보(어떤 스킬셋인지)

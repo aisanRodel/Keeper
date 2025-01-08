@@ -4,6 +4,8 @@
 #include "Skill/SkillDataStruct.h"
 #include "Character/KeeperCharacter.h"
 
+#include "Animation/AnimInstance.h"
+
 SkillDataStruct::SkillDataStruct()
 {
 }
@@ -41,10 +43,20 @@ void FSkillDataStruct::Use(AKeeperCharacter* player)
 	switch (SkillType)
 	{
 	case ESkillAttackType::Melee:
+	{
 		UE_LOG(LogTemp, Log, TEXT("Melee Skill"));
-		DrawDebugSphere(player->GetWorld(), PlayerPosition + player->GetActorForwardVector() * 100.0f, Range, 26, FColor::Red, false, 3.0f, 0, 2);
-		break;
 
+		UAnimInstance* AnimInstance = player->GetMesh()->GetAnimInstance();
+		if (AnimInstance)
+		{
+			if (SkillAnimMontage)
+				AnimInstance->Montage_Play(SkillAnimMontage);
+			else
+				DrawDebugSphere(player->GetWorld(), PlayerPosition + player->GetActorForwardVector() * 100.0f, Range, 26, FColor::Red, false, 3.0f, 0, 2);
+		}
+
+		break;
+	}
 	case ESkillAttackType::Ranged:
 	{
 		UE_LOG(LogTemp, Log, TEXT("Ranged Skill"));
