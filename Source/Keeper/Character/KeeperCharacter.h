@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "DamageField_Base.h"
+#include "../Skill/SkillDataStruct.h"
 #include "KeeperCharacter.generated.h"
 
 class AKeeperCharacterController;
@@ -124,32 +125,17 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Skill", meta = (AllowPrivateAccess = "true"))
 	class USkillComponent* SkillComponent;	// 스킬을 관리하는 컴포넌트. 스킬의 기능이나 요소는 여기에 있습니다.
 
-	// 스킬 쿨타임 제어를 위한 타이머핸들
-	FTimerHandle SkillQTimerHandle;
-	FTimerHandle SkillWTimerHandle;
-	FTimerHandle SkillETimerHandle;
-	FTimerHandle SkillRTimerHandle;
+	TMap<ESkillKeyMapping, FTimerHandle> SkillCooldownHandle;
 
 public:
-	// 스킬 사용 시 바인딩되는 함수들
-	UFUNCTION(BlueprintCallable)
-	void SkillActivatedQ();
-	UFUNCTION(BlueprintCallable)
-	void SkillActivatedW();
-	UFUNCTION(BlueprintCallable)
-	void SkillActivatedE();
-	UFUNCTION(BlueprintCallable)
-	void SkillActivatedR();
-
+	UFUNCTION()
+	FSkillDataStruct FindSkillDataWithMappingKey(ESkillKeyMapping Key);
+	// 스킬 사용 시 바인딩되는 함수
+	UFUNCTION()
+	void ActivateSkill(ESkillKeyMapping Key);
 	// 스킬 쿨타임 종료 후 타이머핸들을 클리어 해주는 함수
-	UFUNCTION(BlueprintCallable)
-	void SkillQCooldown();
-	UFUNCTION(BlueprintCallable)
-	void SkillWCooldown();
-	UFUNCTION(BlueprintCallable)
-	void SkillECooldown();
-	UFUNCTION(BlueprintCallable)
-	void SkillRCooldown();
+	UFUNCTION()
+	void CooldownSkill(ESkillKeyMapping Key);
 
 	//-------------------------------------------------
 

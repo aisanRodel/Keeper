@@ -14,6 +14,16 @@ public:
 	~SkillDataStruct();
 };
 
+
+UENUM(BlueprintType)
+enum class ESkillKeyMapping : uint8
+{
+	Q	UMETA(DisplayName = "Key_Q"),
+	W	UMETA(DisplayName = "Key_W"),
+	E	UMETA(DisplayName = "Key_E"),
+	R	UMETA(DisplayName = "Key_R")
+};
+
 // 스킬셋의 종류, 사용중인 스킬이 어느 스킬셋에 포함되었는지 구분을 위함.
 UENUM(BlueprintType)
 enum class ESkillSetType : uint8
@@ -35,6 +45,7 @@ struct FSkillDataStruct :public FTableRowBase
 {
 	GENERATED_USTRUCT_BODY()
 
+
 public:
 	void Use(class AKeeperCharacter* player);
 	uint8 IsCooldown() { return bIsCooldown; }
@@ -43,6 +54,9 @@ public:
 
 public:
 	// ---------- 스킬만의 정보 ----------
+	// 스킬 타입(임시)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	ESkillAttackType SkillType;	
 	// 스킬의 이름
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FText Name; 
@@ -61,16 +75,16 @@ public:
 	// 스킬의 범위(사거리)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float Range;	
-	// 스킬 타입(임시)
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	ESkillAttackType SkillType;	
 	// 원거리 스킬의 투사체
-	//UPROPERTY(EditAnywhere)
-	//TSubclassOf<class AActor> Projectile;	
+	UPROPERTY(EditAnywhere, meta = (DisplayName = "Projectile Actor", EditCondition = "SkillType == ESkillAttackType::Ranged"))
+	TSubclassOf<class AActor> Projectile;	
 
 	// 스킬 애니메이션 몽타주
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	class UAnimMontage* SkillAnimMontage;	
+	class UAnimMontage* SkillAnimMontage;
+	// 스킬 데미지 계수
+	UPROPERTY(EditAnywhere, Category = "Damage")
+	float DamageCoefficient;
 
 	// <스킬 정보에 추가되어야 하는 내용>
 	//  - 스킬 인덱스, 스킬 종류(근접(단일, 광역), 원거리(단일, 광역), 지속형, 재사용, 트리거), 스킬의 지정위치정보(QWER 중 어느 위치인지), 스킬의 집합정보(어떤 스킬셋인지)

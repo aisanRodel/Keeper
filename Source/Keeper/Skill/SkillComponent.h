@@ -36,6 +36,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Skill)
 	FSkillDataStruct SkillToR;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Skill)
+	TMap<ESkillKeyMapping, FSkillDataStruct> Skills;
 	//스킬 인덱스로 정보줘서 키 맵핑하기
 	//설정한 키를 입력했을 때 정상적으로 정보를 출력하는지 확인
 	//스킬에 필요한 정보 다시 정리해서 구조체 재작성하기

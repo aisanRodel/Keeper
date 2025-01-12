@@ -15,6 +15,10 @@ USkillComponent::USkillComponent()
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = false;
 
+	Skills.Add(ESkillKeyMapping::Q);
+	Skills.Add(ESkillKeyMapping::W);
+	Skills.Add(ESkillKeyMapping::E);
+	Skills.Add(ESkillKeyMapping::R);
 	//FString SkillDataPath = TEXT("/Game/Blueprints/Skills/KeeperSkillData.KeeperSkillData");
 	//static ConstructorHelpers::FObjectFinder<UDataTable> DT_Skill(*SkillDataPath);
 	//KeeperSkillData = DT_Skill.Object;
@@ -30,7 +34,7 @@ USkillComponent::USkillComponent()
 void USkillComponent::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 	//SkillToQ = *GetSkillCustomData(1);
 	//SkillToW = *GetSkillCustomData(6);
 }

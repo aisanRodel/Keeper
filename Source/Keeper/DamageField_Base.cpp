@@ -14,7 +14,7 @@ ADamageField_Base::ADamageField_Base()
 	CachedRootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"));
 	SetRootComponent(CachedRootComponent) ;
 
-	damageRadius = 0.0;
+	damageRadius = 0.0f;
 	DamageAmount = 0.0f;
 	damageCalculation = 0.0f;
 	bCanDealDamage = true;

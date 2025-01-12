@@ -105,7 +105,7 @@ void AKeeperCharacterController::OnButtonQPressed()
 {
 	if (MyChar)
 	{
-		MyChar->SkillActivatedQ();
+		MyChar->ActivateSkill(ESkillKeyMapping::Q);
 	}
 }
 
@@ -113,7 +113,7 @@ void AKeeperCharacterController::OnButtonWPressed()
 {
 	if (MyChar)
 	{
-		MyChar->SkillActivatedW();
+		MyChar->ActivateSkill(ESkillKeyMapping::W);
 	}
 }
 
@@ -121,7 +121,7 @@ void AKeeperCharacterController::OnButtonEPressed()
 {
 	if (MyChar)
 	{
-		MyChar->SkillActivatedE();
+		MyChar->ActivateSkill(ESkillKeyMapping::E);
 	}
 }
 
@@ -129,7 +129,7 @@ void AKeeperCharacterController::OnButtonRPressed()
 {
 	if (MyChar)
 	{
-		MyChar->SkillActivatedR();
+		MyChar->ActivateSkill(ESkillKeyMapping::R);
 	}
 }
 
