@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "Skill/SkillDataStruct.h"
@@ -18,7 +18,7 @@ void FSkillDataStruct::Use(AKeeperCharacter* player)
 {
 	UE_LOG(LogTemp, Log, TEXT("Activated Skill :: %s"), *Name.ToString());
 
-	// ��ų ��� �� �÷��̾��� ��ġ�� ���콺�� ��ġ�� �ʱ�ȭ
+	// 스킬 사용 시 플레이어의 위치와 마우스의 위치를 초기화
 	PlayerPosition = player->GetActorLocation();
 	APlayerController* MyPlayerController;
 	MyPlayerController = player->GetWorld()->GetFirstPlayerController();
@@ -38,9 +38,9 @@ void FSkillDataStruct::Use(AKeeperCharacter* player)
 
 	player->IncreasedMadness(Cost);
 
-	// �ش� �κп��� ��ų ��� �� �ִϸ��̼ǰ� ����Ʈ ���� ó��(����)
-	// Ÿ�Ժ��� �����ؼ� ����ü ���� �Էµ� ������ ���� ��ų�� Ȱ��ȭ
-	// --> ��ų�� �ִ� ��Ÿ�ָ� ����� ���� ���̺��� ���� �ϰ� �ʱ�ȭ�� ����.
+	// 해당 부분에서 스킬 사용 시 애니메이션과 이펙트 등을 처리(예정)
+	// 타입별로 구분해서 구조체 내에 입력된 정보에 따라 스킬을 활성화
+	// --> 스킬별 애님 몽타주를 만들어 이후 테이블을 통해 일괄 초기화할 예정.
 	switch (SkillType)
 	{
 	case ESkillAttackType::Melee:

@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -28,12 +28,11 @@ public:
 #endif
 
 public:
+	// 해당 데미지필드 노티파이가 어떤 키에 위치한 스킬인지를 의미한다.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	ESkillKeyMapping MappingKey;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSubclassOf<class ABaseSkillDamageField> SkillDamageFieldClass;
 	UPROPERTY()
-	ABaseSkillDamageField* SpawnedDamageField;
+	class ABaseSkillDamageField* SpawnedDamageField;
 	// Location offset from socket
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AnimNotify")
 	FVector LocationOffset;
