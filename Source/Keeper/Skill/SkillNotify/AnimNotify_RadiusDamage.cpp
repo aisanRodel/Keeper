@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+Ôªø// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "Skill/SkillNotify/AnimNotify_RadiusDamage.h"
@@ -8,7 +8,7 @@
 
 #include "Engine/OverlapResult.h"
 
-//https://blog.naver.com/kzh8055/222066096980 : ∫Œ√§≤√ π¸¿ß¿« ∞¯∞› ∆«¡§ ¬¸∞Ì
+//https://blog.naver.com/kzh8055/222066096980 : Î∂ÄÏ±ÑÍº¥ Î≤îÏúÑÏùò Í≥µÍ≤© ÌåêÏ†ï Ï∞∏Í≥†
 
 void UAnimNotify_RadiusDamage::Notify(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation)
 {
@@ -33,7 +33,7 @@ void UAnimNotify_RadiusDamage::Notify(USkeletalMeshComponent* MeshComp, UAnimSeq
 				OutOverlaps,
 				Player->GetActorLocation(),
 				FQuat::Identity,
-				ECollisionChannel::ECC_GameTraceChannel1, //trace √§≥Œ º≥¡§ « ø‰
+				ECollisionChannel::ECC_GameTraceChannel1, //trace Ï±ÑÎÑê ÏÑ§Ï†ï ÌïÑÏöî
 				FCollisionShape::MakeCapsule(Extent),
 				Params
 			)) {

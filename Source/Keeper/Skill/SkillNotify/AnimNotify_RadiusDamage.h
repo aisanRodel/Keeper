@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -19,7 +19,7 @@ public:
 	virtual void Notify(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation);
 
 public:
-	// ÇØ´ç µ¥¹ÌÁöÇÊµå ³ëÆ¼ÆÄÀÌ°¡ ¾î¶² Å°¿¡ À§Ä¡ÇÑ ½ºÅ³ÀÎÁö¸¦ ÀÇ¹ÌÇÑ´Ù.
+	// í•´ë‹¹ ë°ë¯¸ì§€í•„ë“œ ë…¸í‹°íŒŒì´ê°€ ì–´ë–¤ í‚¤ì— ìœ„ì¹˜í•œ ìŠ¤í‚¬ì¸ì§€ë¥¼ ì˜ë¯¸í•œë‹¤.
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	ESkillKeyMapping MappingKey;
 
