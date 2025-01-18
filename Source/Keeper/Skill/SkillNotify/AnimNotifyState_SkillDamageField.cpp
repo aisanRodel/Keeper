@@ -39,6 +39,12 @@ void UAnimNotifyState_SkillDamageField::NotifyBegin(USkeletalMeshComponent* Mesh
 			
 			SpawnedDamageField = MeshComp->GetWorld()->SpawnActor<ABaseSkillDamageField>(ABaseSkillDamageField::StaticClass(), SpawnTransform, SpawnInfo);
 			SpawnedDamageField->CreateDamageField_Sphere(DamageRadius, ActualDamage);
+			// 디버프 부여효과가 있는 경우.
+			if (CurrentSkillData.SkillAttackType == ESkillAttackType::Debuff && CurrentSkillData.EffectActor)
+			{
+				SpawnedDamageField->EffectActor = CurrentSkillData.EffectActor;
+				SpawnedDamageField->SetEffectDuration(CurrentSkillData.EffectDuration);
+			}
 		}
 	}
 }

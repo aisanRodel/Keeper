@@ -4,6 +4,7 @@
 #include "Skill/BaseSkillDamageField.h"
 #include "Components/SphereComponent.h"
 #include "Monster/MonsterBase.h"
+#include "Skill/SkillActor/AdditionalEffectActor.h"
 
 // Sets default values
 ABaseSkillDamageField::ABaseSkillDamageField()
@@ -37,6 +38,23 @@ void ABaseSkillDamageField::SetDamage(float ActualDamage)
 	DamageAmount = ActualDamage;
 }
 
+void ABaseSkillDamageField::SetEffectDuration(float InDuration)
+{
+	Duration = InDuration;
+}
+
+void ABaseSkillDamageField::SpawnEffectActorToTarget(AMonsterBase* InTarget)
+{
+	AAdditionalEffectActor* SpawnedEffectActor;
+
+	FVector SpawnLocation = InTarget->GetActorLocation();
+	FRotator SpawnRotation = FRotator::ZeroRotator;
+	SpawnedEffectActor = GetWorld()->SpawnActor<AAdditionalEffectActor>(EffectActor, SpawnLocation, SpawnRotation);
+
+	SpawnedEffectActor->SetTargetMonster(InTarget);
+	SpawnedEffectActor->SetEffectDuration(Duration);
+}
+
 // Called when the game starts or when spawned
 void ABaseSkillDamageField::BeginPlay()
 {
@@ -52,7 +70,7 @@ void ABaseSkillDamageField::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, 
 		{
 			Monster->TakeDamage(DamageAmount);
 
-			UE_LOG(LogTemp, Warning, TEXT("Damage %f applied to Monster: %s"), DamageAmount, *OtherActor->GetName());
+			if (EffectActor) SpawnEffectActorToTarget(Monster);
 		}
 	}
 }

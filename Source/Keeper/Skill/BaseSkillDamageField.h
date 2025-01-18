@@ -21,6 +21,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Damage")
 	void SetDamage(float ActualDamage);
 
+	void SetEffectDuration(float InDuration);
+	void SpawnEffectActorToTarget(class AMonsterBase* InTarget);
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -35,7 +38,13 @@ public:
 	USceneComponent* CachedRootComponent;
 	class USphereComponent* HitSphereComponent;
 
-private:
+	UPROPERTY()
+	TSubclassOf<class AAdditionalEffectActor> EffectActor;
+
+protected:
 	UPROPERTY(VisibleAnywhere, Category = "Damage")
 	float DamageAmount;
+
+	UPROPERTY()
+	float Duration;
 };

@@ -41,7 +41,7 @@ void FSkillDataStruct::Use(AKeeperCharacter* player)
 	// 해당 부분에서 스킬 사용 시 애니메이션과 이펙트 등을 처리(예정)
 	// 타입별로 구분해서 구조체 내에 입력된 정보에 따라 스킬을 활성화
 	// --> 스킬별 애님 몽타주를 만들어 이후 테이블을 통해 일괄 초기화할 예정.
-	switch (SkillType)
+	switch (SkillAttackType)
 	{
 	case ESkillAttackType::Melee:
 	{
@@ -63,14 +63,18 @@ void FSkillDataStruct::Use(AKeeperCharacter* player)
 	case ESkillAttackType::Ranged:
 	{
 		UE_LOG(LogTemp, Log, TEXT("Ranged Skill"));
-		//static ConstructorHelpers::FClassFinder<AActor>ProjectileRef(TEXT("/Script/Engine.Blueprint'/Game/Blueprints/Skills/BP_CTestProjectile.BP_CTestProjectile'"));
-		FVector newDir = MouseCursorPosition - PlayerPosition;
-		newDir.Z = 0.0f;
-		//if (Projectile) {
-		//	FVector PlayerLocation = FVector(PlayerPosition.X, PlayerPosition.Y, 60.0f);
-		//	TObjectPtr<ASkillProjectile> TempProjectile = Cast<ASkillProjectile>(player->GetWorld()->SpawnActor(Projectile, &PlayerLocation));
-		//	if (TempProjectile) TempProjectile->ShootProjectile(newDir);
-		//}
+
+		UAnimInstance* AnimInstance = player->GetMesh()->GetAnimInstance();
+		if (AnimInstance)
+		{
+			if (SkillAnimMontage)
+			{
+				AnimInstance->Montage_Play(SkillAnimMontage);
+			}
+			else
+				DrawDebugSphere(player->GetWorld(), PlayerPosition + player->GetActorForwardVector() * 100.0f, Range, 26, FColor::Red, false, 3.0f, 0, 2);
+		}
+
 		break;
 	}
 

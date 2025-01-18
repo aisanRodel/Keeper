@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Engine/DataTable.h"
+#include "SkillActor/AdditionalEffectActor.h"
 #include "SkillDataStruct.generated.h"
 
 
@@ -28,8 +29,8 @@ enum class ESkillKeyMapping : uint8
 UENUM(BlueprintType)
 enum class ESkillSetType : uint8
 {
-	DefalutSet	UMETA(DisplayName = "Defalut"),
-	BeastSet	UMETA(DisplayName = "Beast")
+	Defalut	UMETA(DisplayName = "DefalutSet"),
+	Beast	UMETA(DisplayName = "BeastSet")
 };
 
 // 스킬의 공격 방식, 해당 스킬의 공격이 근접인지, 원거리인지 구분을 위함.
@@ -37,7 +38,10 @@ UENUM(BlueprintType)
 enum class ESkillAttackType : uint8
 {
 	Melee	UMETA(DisplayName = "Melee"),
-	Ranged	UMETA(DisplayName = "Ranged")
+	Ranged	UMETA(DisplayName = "Ranged"),
+	Target	UMETA(DisplayName = "Targeting"),
+	Buff	UMETA(DisplayName = "Buff"),
+	Debuff	UMETA(DisplayName = "Debuff")
 };
 
 USTRUCT(Atomic, BlueprintType)
@@ -54,15 +58,21 @@ public:
 
 public:
 	// ---------- 스킬만의 정보 ----------
-	// 스킬 타입(임시)
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	ESkillAttackType SkillType;	
 	// 스킬의 이름
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FText Name; 
 	// 스킬 설명
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FText Description;	
+	// 스킬셋 타입. 어떤 스킬셋에 포함되어 있는지.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	ESkillSetType SkillSet;
+	// 스킬 타입. 스킬의 유형 구분.
+	// Melee : 근거리, Ranged : 원거리, Targeting : 대상지정, Buff : 버프부여, Debuff : 디버프부여
+	// 버프, 디버프 부여는 공격 여부 상관없이 해당 효과를 가진 스킬일 경우 사용. 
+	// 즉, 스킬이 피해를 입히든 입히지 않든 버프나 디버프를 부여하면 해당 유형으로 구분.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	ESkillAttackType SkillAttackType;	
 	// 스킬의 현재 레벨
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	int32 CurrentLevel;	
@@ -75,9 +85,21 @@ public:
 	// 스킬의 범위(사거리)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float Range;	
-	// 원거리 스킬의 투사체
-	UPROPERTY(EditAnywhere, meta = (DisplayName = "Projectile Actor", EditCondition = "SkillType == ESkillAttackType::Ranged"))
-	TSubclassOf<class AActor> Projectile;	
+
+	// 원거리 스킬의 투사체. SkillAttackType이 Ranged일 때만 활성화.
+	UPROPERTY(EditAnywhere, meta = (DisplayName = "Projectile Actor", EditCondition = "SkillAttackType == ESkillAttackType::Ranged"))
+	TSubclassOf<class ABaseProjectileActor> Projectile;
+
+	// 스킬의 효과부여 여부. true면 해당 스킬은 특정 대상에게 효과를 부여함.
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	//uint8 bCanApplyEffect : 1;
+	// 효과 부여 스킬의 이펙트 액터. bCanApplyEffect가 true일 때만 활성화.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (EditCondition = "SkillAttackType == ESkillAttackType::Buff || SkillAttackType == ESkillAttackType::Debuff"))
+	TSubclassOf<class AAdditionalEffectActor> EffectActor;
+	// 부여된 효과의 지속시간. bCanApplyEffect가 true일 때만 활성화.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (EditCondition = "SkillAttackType == ESkillAttackType::Buff || SkillAttackType == ESkillAttackType::Debuff"))
+	float EffectDuration;
+
 
 	// 스킬 애니메이션 몽타주
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

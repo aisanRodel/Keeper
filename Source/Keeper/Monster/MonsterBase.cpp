@@ -54,6 +54,8 @@ void AMonsterBase::TakeDamage(float DamageAmount)
 	float ActualDamage = FMath::Max(0.0f, DamageAmount - MonsterDef);
 	CurrentHP = FMath::Max(0.0f, CurrentHP - ActualDamage);
 
+	UE_LOG(LogTemp, Warning, TEXT("Damage %f applied to Monster: %s"), ActualDamage, *GetName());
+
 	if (CurrentHP <= 0.0f)
 	{
 		Die();
@@ -63,6 +65,8 @@ void AMonsterBase::TakeDamage(float DamageAmount)
 void AMonsterBase::Die()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Monster has died."));
+	
+	OnMonsterDead.Broadcast();
 
 	Destroy();
 }
